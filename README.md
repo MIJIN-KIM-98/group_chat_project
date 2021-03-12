@@ -5,7 +5,7 @@ nodejs의 socket.io를 활용한 그룹채팅 웹 애플리케이션입니다.
 ## 구현
 
 
-<img scr="https://user-images.githubusercontent.com/80513241/110921920-76e9ce80-8362-11eb-8f46-3cd73927d60a.png" width=500>
+<img scr="https://user-images.githubusercontent.com/80513241/110921920-76e9ce80-8362-11eb-8f46-3cd73927d60a.png" width=500 height=1200>
 ### 1. 프롬프트를 사용하여 입력창에 방이름을 입력받는다.
 
 
