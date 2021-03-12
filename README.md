@@ -4,10 +4,8 @@ nodejs의 socket.io를 활용한 그룹채팅 웹 애플리케이션입니다.
 
 ## 구현
 
-
-<img scr="https://user-images.githubusercontent.com/80513241/110921920-76e9ce80-8362-11eb-8f46-3cd73927d60a.png" width=500 height=1200>
 ### 1. 프롬프트를 사용하여 입력창에 방이름을 입력받는다.
-
+<img scr="https://user-images.githubusercontent.com/80513241/110921920-76e9ce80-8362-11eb-8f46-3cd73927d60a.png" width=100% height=150%>
 
 ![2](https://user-images.githubusercontent.com/80513241/110921923-77826500-8362-11eb-81f6-c74d7d35b9b7.png)
 ### 2. Start Chat을 눌러 채팅을 시작한다.
