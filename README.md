@@ -1,16 +1,17 @@
 # group_chat_project
 nodejs의 socket.io를 활용한 그룹채팅 웹 애플리케이션입니다.
 
-<img src="https://user-images.githubusercontent.com/80513241/110920016-3b4e0500-8360-11eb-8707-7ea3628bbe9d.png" width=500>
 
-![2](https://user-images.githubusercontent.com/80513241/110920036-443ed680-8360-11eb-89a4-45be2ded0943.png)
+![1](https://user-images.githubusercontent.com/80513241/110921920-76e9ce80-8362-11eb-8f46-3cd73927d60a.png)
 
-![3](https://user-images.githubusercontent.com/80513241/110920037-44d76d00-8360-11eb-8cf6-8911326615bf.png)
+![2](https://user-images.githubusercontent.com/80513241/110921923-77826500-8362-11eb-81f6-c74d7d35b9b7.png)
 
-![4](https://user-images.githubusercontent.com/80513241/110920039-44d76d00-8360-11eb-8088-da63c8cccf73.png)
+![3](https://user-images.githubusercontent.com/80513241/110921925-77826500-8362-11eb-862a-a69b3c51a141.png)
 
-![5](https://user-images.githubusercontent.com/80513241/110920042-45700380-8360-11eb-8228-3c09ffa47504.png)
+![4](https://user-images.githubusercontent.com/80513241/110921926-781afb80-8362-11eb-9802-39b2318158b1.png)
 
-![6](https://user-images.githubusercontent.com/80513241/110920043-46089a00-8360-11eb-9c0f-50fe90d377d9.png)
+![5](https://user-images.githubusercontent.com/80513241/110921907-75200b00-8362-11eb-8768-4e1426396f88.png)
 
-![7](https://user-images.githubusercontent.com/80513241/110920046-46089a00-8360-11eb-8b91-4244b0531ef5.png)
+![6](https://user-images.githubusercontent.com/80513241/110921912-76513800-8362-11eb-8a1b-d447cc97accf.png)
+
+![7](https://user-images.githubusercontent.com/80513241/110921917-76e9ce80-8362-11eb-9160-9d1904df82ae.png)
