@@ -1,7 +1,7 @@
 # group_chat_project
 nodejs의 socket.io를 활용한 그룹채팅 웹 애플리케이션입니다.
 
-![1](https://user-images.githubusercontent.com/80513241/110920016-3b4e0500-8360-11eb-8707-7ea3628bbe9d.png)
+<img src="https://user-images.githubusercontent.com/80513241/110920016-3b4e0500-8360-11eb-8707-7ea3628bbe9d.png" width=500>
 
 ![2](https://user-images.githubusercontent.com/80513241/110920036-443ed680-8360-11eb-89a4-45be2ded0943.png)
 
