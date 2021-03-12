@@ -1,0 +1,8 @@
+{
+  "accessKeyId": "접근키",
+  "secretAccessKey": "비밀키",
+  "region": "ap-northeast-2",
+  "endPoint" : "s3.amazonaws.com"
+}
+
+접근키와 비밀키는 보안문제로 입력하지 않았습니다.

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf8" />
+  <title>Mobile Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src=”https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js”> </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    window.onload = function () {
+
+      var room = prompt('방 이름을 입력하세요.', '');
+      var nickName = "";
+      var roomName = room;
+      var handle = null;
+      var socket = io.connect();
+
+      socket.emit('join', room);
+
+      socket.on('message', function (data) {
+        var output2 = '';
+        output2 += '<li>';
+        output2 += '    <h4>' + data.name + '</h4>';
+        output2 += '    <h3>' + data.message + '</h3>';
+        output2 += '    <p>' + data.date + '</p>';
+        output2 += '    <p>room_name:' + data.room + '</p>';
+        output2 += '</li>';
+
+        $(output2).prependTo('#content');
+        $('#content').listview('refresh');
+      });
+
+      $("#btn_nick").on("click",function(){
+          var nicknameValue = $('#name').val();
+          nickName = nicknameValue;
+          socket.emit("nickNameCheck",{name:nicknameValue, room:room});
+          socket.emit("randomChatFindClick",{name:nicknameValue, room:room});
+      });
+      socket.on("nullError",function(result){
+          alert(result);
+      });
+      socket.on("sameNameError",function(result){
+          alert(result);
+          $('#name').val(''),
+          $('#name').focus();
+          e.preventDefault();
+      });
+      socket.on("nickNameCheckComplete",function(data){
+        var output1 = '';
+        output1 += '<li>';
+        output1 += '    <p>' + data.room + ' 방에 ' + data.name+ ' 님이 입장했습니다' + '</p>';
+        output1 += '</li>';
+
+        $(output1).prependTo('#content');
+        $('#content').listview('refresh');
+        $("#button").show(); $("#Exit").show();
+        $("#btn_nick").show();
+        roomName = data;
+      });
+
+      $("#button").on("click",function (e) {
+        socket.emit('message',{
+          name:$('#name').val(),
+          message:$('#message').val(),
+          date:new Date().toUTCString(),
+          room: room
+       });
+       $('#message').val('');
+       $('#message').focus();
+       e.preventDefault();
+     });
+
+
+     $("#Exit").on("click",function (e) {
+       socket.emit('exit',{
+         name:$('#name').val(),
+         message:$('#message').val(),
+         date:new Date().toUTCString(),
+         room: room
+      });
+
+    });
+    socket.on("exit",function(data){
+      var output1 = '';
+      output1 += '<li>';
+      output1 += '    <p>' + data.room + ' 방에 ' + data.name+ ' 님이 퇴장하였습니다' + '</p>';
+      output1 += '</li>';
+
+      $(output1).prependTo('#content');
+      $('#content').listview('refresh');
+      $("#button").show(); $("#Exit").show();
+      $("#btn_nick").show();
+      roomName = data;
+    });
+
+
+
+
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+
+      socket.on('image', function (data) {
+        var output = '';
+        output += '<li>';
+        output += '    <h3>' + data.name + '</h3>';
+        output += '    <img src =' + data.message + ' height = 200px width = 200px>';
+
+
+        output += '    <p>' + data.date + '</p>';
+        output += '</li>';
+
+
+        $(output).prependTo('#content');
+        $('#content').listview('refresh');
+      });
+
+      $(function(){
+        $('#uploadBtn').on('click', function(){
+        uploadFile();
+        });
+      });
+
+      function uploadFile(){
+        var form = $('#uploadForm')[0];
+        var formData = new FormData();
+        formData.append("image", $("input[name=test]")[0].files[0]);
+        var obj = {formData}
+        $.ajax({
+          url : 'http://127.0.0.1:52273/image',
+          type : 'POST',
+          method: "POST",
+          timeout: 0,
+          processData: false,
+          mimeType: "multipart/form-data",
+          contentType: false,
+          data: formData,
+
+          success: function (data) {
+            socket.emit('image', {
+              name: $('#name').val(),
+              message: data,
+              date: new Date().toUTCString()
+            });
+            alert("complete");
+            $("#btnSubmit").prop("disabled", false);
+          },
+          error: function (e) {
+            console.log("ERROR : ", e);
+            $("#btnSubmit").prop("disabled", false);
+            alert("fail");
+          }
+        }).done(function(data){
+          callback(data);
+        });
+        $.submit();
+      }
+
+    };
+  </script>
+</head>
+
+<body>
+
+  <div data-role="page" id="chatpage">
+    <div data-role="header">
+      <h1>Socket.io Chat</h1>
+    </div>
+
+    <div data-role="content">
+      <a data-role="button" id="Exit" href="#End">Exit</a>
+      <h3>Nick Name</h3>
+      <input id="name" placeholder="닉네임을 입력하세요..."/>
+      <button id="btn_nick">Start Chat</button>
+    </div>
+
+    <div data-role="content">
+
+      <input id="message" placeholder="메세지를 입력하세요..."/>
+      <button id='button'>Send</button>
+
+      <form id="uploadForm" method="post" enctype="multipart/form-data">
+        <input type="file" name="test" id="test"/>
+        <button type="button" id="uploadBtn">Send Image</button>
+      </form>
+
+      <ul id="content" data-role="listview" data-inset="true"></ul>
+    </div>
+  </div>
+  <div data-role="page" id="End">
+    <div data-role="header">
+      <h1>Bye Chat</h1>
+    </div>
+  </div>
+</body>
+
+</html>
